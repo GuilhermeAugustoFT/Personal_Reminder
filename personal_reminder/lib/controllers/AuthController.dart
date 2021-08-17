@@ -18,10 +18,4 @@ class AuthController {
     instance.setString("PersonalReminderUser", name);
     Navigator.of(context).pushReplacementNamed("/home");
   }
-
-  Future<String?> getUser() async {
-    final instance = await SharedPreferences.getInstance();
-    String? name = instance.getString("PersonalReminderUser");
-    return name;
-  }
 }
