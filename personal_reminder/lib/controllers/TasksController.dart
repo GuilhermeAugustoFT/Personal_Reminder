@@ -1,33 +1,66 @@
 import 'package:personal_reminder/models/Task.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TasksController {
-  List<Task> getPendingTasks() {
+  Future<List<String>?> getPendingTasks() async {
     // RETORNA A LISTA COM TODAS AS TAREFAS
-    List<Task> list = [];
+    List<String>? list = [];
+    final instance = await SharedPreferences.getInstance();
+    list = instance.getStringList("pendingTasks");
+
     return list;
   }
 
-  List<Task> getCompletedTasks() {
+  Future<List<String>?> getCompletedTasks() async {
     // RETORNA A LISTA COM TODAS AS TAREFAS CONCLUIDAS
-    List<Task> list = [];
+    List<String>? list = [];
+    final instance = await SharedPreferences.getInstance();
+    list = instance.getStringList("completedTasks");
+
     return list;
   }
 
-  void addToPending() {
+  void addToPending(Task task) async {
     // ADICIONAR TAREFA  NA LISTA DO SHARED PREFERENCES
+    List<String>? list = [];
+    final instance = await SharedPreferences.getInstance();
+    if (await getPendingNumber() != 0)
+      list = instance.get("pendingTasks") as List<String>?;
+    list!.add(task.toJson());
+    instance.setStringList("pendingTasks", list);
   }
 
-  void addToCompleted() {
+  void addToCompleted(Task task) async {
     // ADICIONAR TAREFA CONCLUIDA NA LISTA DO SHARED PREFERENCES
+    List<String>? list = [];
+    final instance = await SharedPreferences.getInstance();
+    if (await getCompletedNumber() != 0)
+      list = instance.get("completedTasks") as List<String>?;
+    list!.add(task.toJson());
+    instance.setStringList("completedTasks", list);
   }
 
-  int getPendingNumber() {
+  Future<int> getPendingNumber() async {
     // RETORNAR O NUMERO DE TAREFAS CONCLUIDAS
-    return 10;
+    final instance = await SharedPreferences.getInstance();
+    if (!instance.containsKey("pendingTasks")) {
+      return 0;
+    }
+
+    List<String> list = [];
+    list = await getPendingTasks() as List<String>;
+    return list.length;
   }
 
-  int getCompletedNumber() {
+  Future<int> getCompletedNumber() async {
     // RETORNAR O NUMERO DE TAREFAS CONCLUIDAS
-    return 100;
+    final instance = await SharedPreferences.getInstance();
+    if (!instance.containsKey("completedTasks")) {
+      return 0;
+    }
+
+    List<String> list = [];
+    list = getCompletedTasks() as List<String>;
+    return list.length;
   }
 }

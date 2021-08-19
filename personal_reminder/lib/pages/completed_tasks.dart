@@ -26,7 +26,7 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
   int tasksNumber = 0;
   void getTasks() {
     var tasksController = TasksController();
-    tasksNumber = tasksController.getCompletedNumber();
+    tasksNumber = tasksController.getCompletedNumber() as int;
   }
 
   void initState() {

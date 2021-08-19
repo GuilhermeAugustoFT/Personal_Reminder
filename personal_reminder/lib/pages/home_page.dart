@@ -87,7 +87,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget getBody() {
-    var size = MediaQuery.of(context).size;
     if (this.actualPage == 0) {
       return PendingTasksPage(userName: name);
     } else {

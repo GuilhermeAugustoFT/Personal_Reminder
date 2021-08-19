@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_reminder/controllers/TasksController.dart';
+import 'package:personal_reminder/models/Task.dart';
+import 'package:personal_reminder/widgets/task_widget.dart';
 
 class PendingTasksPage extends StatefulWidget {
   PendingTasksPage({required this.userName});
@@ -24,9 +26,22 @@ class _PendingTasksPageState extends State<PendingTasksPage> {
   }
 
   int tasksNumber = 0;
-  void getTasks() {
+  List<String> tasksList = [];
+
+  Future<void> getTasks() async {
     var tasksController = TasksController();
-    tasksNumber = tasksController.getPendingNumber();
+    tasksController.addToPending(Task(
+        name: "Lição de Matemática",
+        description:
+            "Exercícios 4 a 10 do livro de Matemátiasdasdasdasdasdasdasdasdasdasdasdasdca",
+        date: "12/11/2021",
+        hour: "12:10",
+        notificationMode: "1"));
+
+    tasksNumber = await tasksController.getPendingNumber();
+    if (tasksNumber > 0) {
+      tasksList = (await tasksController.getPendingTasks())!;
+    }
   }
 
   void initState() {
@@ -47,11 +62,23 @@ class _PendingTasksPageState extends State<PendingTasksPage> {
           children: [
             Padding(
               padding: EdgeInsets.only(
-                  left: size.width * 0.03, top: size.width * 0.1),
+                  left: size.width * 0.03, top: size.width * 0.1, bottom: 25),
               child: Text(
                 "$time ${this.widget.userName},\nVocê possui $tasksNumber tarefas pendentes",
                 style: GoogleFonts.montserrat(
                     color: Colors.white, fontSize: size.width * 0.057),
+              ),
+            ),
+            SingleChildScrollView(
+              child: Container(
+                height: size.height * 0.7,
+                child: ListView.builder(
+                    itemCount: tasksNumber,
+                    itemBuilder: (context, index) {
+                      return TaskWidget(
+                        stringTask: tasksList[index],
+                      );
+                    }),
               ),
             ),
             // LISTA DE TAREFAS PENDENTES
