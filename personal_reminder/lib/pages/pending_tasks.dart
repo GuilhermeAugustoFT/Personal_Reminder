@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_reminder/controllers/TasksController.dart';
-import 'package:personal_reminder/models/Task.dart';
 import 'package:personal_reminder/widgets/task_widget.dart';
 
 class PendingTasksPage extends StatefulWidget {
@@ -30,13 +29,6 @@ class _PendingTasksPageState extends State<PendingTasksPage> {
 
   Future<void> getTasks() async {
     var tasksController = TasksController();
-    tasksController.addToPending(Task(
-        name: "Lição de Matemática",
-        description:
-            "Exercícios 4 a 10 do livro de Matemátiasdasdasdasdasdasdasdasdasdasdasdasdca",
-        date: "12/11/2021",
-        hour: "12:10",
-        notificationMode: "1"));
 
     tasksNumber = await tasksController.getPendingNumber();
     if (tasksNumber > 0) {
@@ -77,11 +69,12 @@ class _PendingTasksPageState extends State<PendingTasksPage> {
                     itemBuilder: (context, index) {
                       return TaskWidget(
                         stringTask: tasksList[index],
+                        index: index,
+                        page: 0,
                       );
                     }),
               ),
             ),
-            // LISTA DE TAREFAS PENDENTES
           ],
         ),
       ),

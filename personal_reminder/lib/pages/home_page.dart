@@ -28,9 +28,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-        body: getBody(),
+        extendBody: true,
+        body: Column(children: [
+          Visibility(
+            visible: actualPage == 0 ? true : false,
+            child: PendingTasksPage(userName: name),
+          ),
+          Visibility(
+            visible: actualPage == 1 ? true : false,
+            child: CompletedTasksPage(userName: name),
+          ),
+        ]),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, "/addTask");
+          },
           child: Icon(
             Icons.add,
             size: 40,
@@ -50,10 +62,9 @@ class _HomePageState extends State<HomePage> {
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
-                      this.actualPage = 0;
-                      setState(() {});
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => HomePage(actualPage: 0)));
+                      setState(() {
+                        this.actualPage = 0;
+                      });
                     },
                     child: Icon(
                       Icons.event_note,
@@ -68,8 +79,6 @@ class _HomePageState extends State<HomePage> {
                     onPressed: () {
                       this.actualPage = 1;
                       setState(() {});
-                      // Navigator.of(context).push(MaterialPageRoute(
-                      //     builder: (context) => HomePage(actualPage: 1)));
                     },
                     child: Icon(
                       Icons.event_available,
@@ -84,13 +93,5 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ));
-  }
-
-  Widget getBody() {
-    if (this.actualPage == 0) {
-      return PendingTasksPage(userName: name);
-    } else {
-      return CompletedTasksPage(userName: name);
-    }
   }
 }

@@ -41,8 +41,8 @@ class _SignInPageState extends State<SignInPage> {
                     top: size.width * 0.04),
                 child: TextField(
                   controller: nameController,
-                  style:
-                      GoogleFonts.montserrat(color: Colors.white, fontSize: 25),
+                  style: GoogleFonts.montserrat(
+                      color: Colors.white, fontSize: size.width * 0.065),
                   cursorColor: Colors.white,
                   decoration: InputDecoration(
                     border: InputBorder.none,

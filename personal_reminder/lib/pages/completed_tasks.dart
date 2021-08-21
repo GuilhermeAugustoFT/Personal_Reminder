@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_reminder/controllers/TasksController.dart';
+import 'package:personal_reminder/widgets/task_widget.dart';
 
 class CompletedTasksPage extends StatefulWidget {
   CompletedTasksPage({required this.userName});
@@ -24,9 +25,13 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
   }
 
   int tasksNumber = 0;
-  void getTasks() {
+  List<String> tasksList = [];
+  Future<void> getTasks() async {
     var tasksController = TasksController();
-    tasksNumber = tasksController.getCompletedNumber() as int;
+
+    tasksNumber = await tasksController.getCompletedNumber();
+    if (tasksNumber > 0)
+      tasksList = (await tasksController.getCompletedTasks())!;
   }
 
   void initState() {
@@ -55,7 +60,20 @@ class _CompletedTasksPageState extends State<CompletedTasksPage> {
                     color: Colors.white, fontSize: size.width * 0.057),
               ),
             ),
-            // LISTA DE TAREFAS CONCLUIDAS
+            SingleChildScrollView(
+              child: Container(
+                height: size.height * 0.7,
+                child: ListView.builder(
+                    itemCount: tasksNumber,
+                    itemBuilder: (context, index) {
+                      return TaskWidget(
+                        stringTask: tasksList[index],
+                        index: index,
+                        page: 1,
+                      );
+                    }),
+              ),
+            ),
           ],
         ),
       ),
