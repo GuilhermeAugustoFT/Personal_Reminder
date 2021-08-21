@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_reminder/controllers/TasksController.dart';
 import 'package:personal_reminder/widgets/task_widget.dart';
 
+// ignore: must_be_immutable
 class PendingTasksPage extends StatefulWidget {
   PendingTasksPage({required this.userName});
   String userName;

@@ -24,21 +24,19 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  Widget getBody() {
+    if (actualPage == 0)
+      return PendingTasksPage(userName: name);
+    else
+      return CompletedTasksPage(userName: name);
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
         extendBody: true,
-        body: Column(children: [
-          Visibility(
-            visible: actualPage == 0 ? true : false,
-            child: PendingTasksPage(userName: name),
-          ),
-          Visibility(
-            visible: actualPage == 1 ? true : false,
-            child: CompletedTasksPage(userName: name),
-          ),
-        ]),
+        body: getBody(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             Navigator.pushNamed(context, "/addTask");

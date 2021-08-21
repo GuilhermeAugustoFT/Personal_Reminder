@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'package:personal_reminder/controllers/TasksController.dart';
 import 'package:personal_reminder/models/Task.dart';
+import 'package:personal_reminder/pages/edit_task_page.dart';
 
 class TaskWidget extends StatefulWidget {
   String stringTask;
@@ -40,6 +41,7 @@ class _TaskWidgetState extends State<TaskWidget> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
     return Container(
       height: size.width * 0.23,
       color: this.widget.page == 0 ? taskColor : Color(0xFF121212),
@@ -48,69 +50,85 @@ class _TaskWidgetState extends State<TaskWidget> {
         children: [
           Row(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text(
-                    task.name,
-                    textAlign: TextAlign.start,
-                    style: GoogleFonts.montserrat(
-                        color: this.widget.page == 0
-                            ? titleColor
-                            : Color(0xFF646566),
-                        fontSize: size.width * 0.065),
-                  ),
-                  Container(
-                    width: size.width * 0.7,
-                    margin: EdgeInsets.only(left: size.width * 0.03),
-                    child: SingleChildScrollView(
-                      child: Row(
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(left: size.width * 0.02),
-                            child: Icon(
-                              Icons.schedule_outlined,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditTaskPage(
+                        task: task,
+                        index: this.widget.index,
+                      ),
+                    ),
+                  );
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: size.width * 0.03),
+                      child: Text(
+                        task.name,
+                        textAlign: TextAlign.start,
+                        style: GoogleFonts.montserrat(
+                            color: this.widget.page == 0
+                                ? titleColor
+                                : Color(0xFF646566),
+                            fontSize: size.width * 0.065),
+                      ),
+                    ),
+                    Container(
+                      width: size.width * 0.7,
+                      margin: EdgeInsets.only(left: size.width * 0.03),
+                      child: SingleChildScrollView(
+                        child: Row(
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(left: size.width * 0.02),
+                              child: Icon(
+                                Icons.schedule_outlined,
+                                color: this.widget.page == 0
+                                    ? textColor
+                                    : Color(0xFF646566),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(
+                                  left: size.width * 0.02,
+                                  right: size.width * 0.16),
+                              child: Text(
+                                task.hour,
+                                style: GoogleFonts.montserrat(
+                                    color: this.widget.page == 0
+                                        ? textColor
+                                        : Color(0xFF646566),
+                                    fontSize: size.width * 0.035),
+                              ),
+                            ),
+                            Icon(
+                              Icons.date_range_outlined,
                               color: this.widget.page == 0
                                   ? textColor
                                   : Color(0xFF646566),
                             ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(
-                                left: size.width * 0.02,
-                                right: size.width * 0.16),
-                            child: Text(
-                              task.hour,
-                              style: GoogleFonts.montserrat(
-                                  color: this.widget.page == 0
-                                      ? textColor
-                                      : Color(0xFF646566),
-                                  fontSize: size.width * 0.035),
+                            Container(
+                              margin: EdgeInsets.only(left: size.width * 0.02),
+                              child: Text(
+                                task.date,
+                                style: GoogleFonts.montserrat(
+                                    color: this.widget.page == 0
+                                        ? textColor
+                                        : Color(0xFF646566),
+                                    fontSize: size.width * 0.035),
+                              ),
                             ),
-                          ),
-                          Icon(
-                            Icons.date_range_outlined,
-                            color: this.widget.page == 0
-                                ? textColor
-                                : Color(0xFF646566),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(left: size.width * 0.02),
-                            child: Text(
-                              task.date,
-                              style: GoogleFonts.montserrat(
-                                  color: this.widget.page == 0
-                                      ? textColor
-                                      : Color(0xFF646566),
-                                  fontSize: size.width * 0.035),
-                            ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Container(
                 margin: EdgeInsets.only(left: size.width * 0.05),
@@ -129,7 +147,16 @@ class _TaskWidgetState extends State<TaskWidget> {
                     tasksController.removeFromPending(this.widget.index);
                     tasksController.addToCompleted(task);
                   } else {
-                    //fazer algo
+                    //NAO FUNCIONANDO
+                    taskColor = Colors.black87;
+                    titleColor = Color(0xFFFF5C5C);
+                    textColor = Colors.white;
+                    checked = false;
+
+                    //FUNCIONANDO
+                    Future.delayed(Duration(seconds: 3));
+                    tasksController.removeFromCompleted(this.widget.index);
+                    tasksController.addToPending(task);
                   }
                   setState(() {});
                 },

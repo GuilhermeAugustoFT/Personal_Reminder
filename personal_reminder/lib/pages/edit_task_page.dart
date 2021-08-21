@@ -1,18 +1,24 @@
+import 'package:animated_card/animated_card.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:intl/intl.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:personal_reminder/controllers/TasksController.dart';
 import 'package:personal_reminder/models/Task.dart';
-import 'package:animated_card/animated_card.dart';
 
-class AddTaskPage extends StatefulWidget {
-  AddTaskPage({Key? key}) : super(key: key);
+class EditTaskPage extends StatefulWidget {
+  Task task;
+  int index;
+  EditTaskPage({
+    Key? key,
+    required this.task,
+    required this.index,
+  }) : super(key: key);
 
   @override
-  _AddTaskPageState createState() => _AddTaskPageState();
+  _EditTaskPage createState() => _EditTaskPage();
 }
 
 var nameController = TextEditingController();
@@ -22,7 +28,7 @@ var date = "__/__/__";
 var simple = true;
 var ready = false;
 
-class _AddTaskPageState extends State<AddTaskPage> {
+class _EditTaskPage extends State<EditTaskPage> {
   Future<Null> pickDate(BuildContext context) async {
     var selectedDate;
     final DateTime? picked = await showDatePicker(
@@ -71,11 +77,15 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   void setData() {
-    nameController.text = "";
-    descriptionController.text = "";
-    time = "__:__";
-    date = "__/__/__";
-    simple = true;
+    nameController.text = this.widget.task.getName();
+    descriptionController.text = this.widget.task.getDescription();
+    time = this.widget.task.getHour();
+    date = this.widget.task.getDate();
+    if (this.widget.task.getNotificationMode() == "simple") {
+      simple = true;
+    } else {
+      simple = false;
+    }
   }
 
   @override
@@ -89,7 +99,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
           color: Color(0xFFA8A8A8),
         ),
         title: Text(
-          "Adicionar Tarefa",
+          "Editar Tarefa",
           style: GoogleFonts.montserrat(
             fontSize: size.width * 0.065,
             color: Color(0xFFA8A8A8),
@@ -335,12 +345,15 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 child: GestureDetector(
                   onTap: () {
                     if (ready) {
+                      final tasksController = TasksController();
+
+                      tasksController.removeFromPending(this.widget.index);
                       var notificationMode = "";
                       if (simple)
                         notificationMode = "simple";
                       else
                         notificationMode = "important";
-                      Task newTask = Task(
+                      this.widget.task = Task(
                         name: nameController.text,
                         description: descriptionController.text,
                         date: date,
@@ -348,8 +361,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                         notificationMode: notificationMode,
                       );
 
-                      final tasksController = TasksController();
-                      tasksController.addToPending(newTask);
+                      tasksController.addToPending(this.widget.task);
                       Navigator.pop(context);
                     }
                   },
@@ -367,7 +379,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     child: Padding(
                       padding: EdgeInsets.only(top: size.width * 0.015),
                       child: Text(
-                        "Adicionar",
+                        "Salvar",
                         textAlign: TextAlign.center,
                         style: GoogleFonts.montserrat(
                             color: Colors.white, fontSize: 30),

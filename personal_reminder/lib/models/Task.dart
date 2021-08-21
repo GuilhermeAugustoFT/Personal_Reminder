@@ -27,6 +27,10 @@ class Task {
     return this.date;
   }
 
+  String getHour() {
+    return this.hour;
+  }
+
   String getNotificationMode() {
     return this.notificationMode;
   }
