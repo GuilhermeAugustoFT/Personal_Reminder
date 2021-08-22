@@ -18,7 +18,7 @@ class AppWidget extends StatelessWidget {
       routes: {
         "/splash": (context) => SplashPage(),
         "/signIn": (context) => SignInPage(),
-        "/home": (context) => HomePage(),
+        "/home": (context) => HomePage(page: 0),
         "/addTask": (context) => AddTaskPage(),
       },
     );

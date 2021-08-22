@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:personal_reminder/pages/completed_tasks.dart';
-import 'package:personal_reminder/pages/pending_tasks.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:personal_reminder/pages/completed_tasks.dart';
+import 'package:personal_reminder/pages/pending_tasks.dart';
+
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  int page;
+  HomePage({
+    Key? key,
+    required this.page,
+  }) : super(key: key);
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -16,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getUserName();
+    actualPage = this.widget.page;
   }
 
   void getUserName() async {
@@ -60,9 +67,17 @@ class _HomePageState extends State<HomePage> {
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
-                      setState(() {
-                        this.actualPage = 0;
-                      });
+                      // setState(() {
+                      //   this.actualPage = 0;
+                      // });
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(
+                            page: 0,
+                          ),
+                        ),
+                      );
                     },
                     child: Icon(
                       Icons.event_note,
@@ -75,8 +90,16 @@ class _HomePageState extends State<HomePage> {
                   MaterialButton(
                     minWidth: 40,
                     onPressed: () {
-                      this.actualPage = 1;
-                      setState(() {});
+                      // this.actualPage = 1;
+                      // setState(() {});
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(
+                            page: 1,
+                          ),
+                        ),
+                      );
                     },
                     child: Icon(
                       Icons.event_available,
