@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:personal_reminder/pages/completed_tasks.dart';
@@ -23,6 +24,10 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getUserName();
     actualPage = this.widget.page;
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
   }
 
   void getUserName() async {

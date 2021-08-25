@@ -8,6 +8,8 @@ import 'package:personal_reminder/controllers/TasksController.dart';
 import 'package:personal_reminder/models/Task.dart';
 import 'package:animated_card/animated_card.dart';
 
+import 'home_page.dart';
+
 class AddTaskPage extends StatefulWidget {
   AddTaskPage({Key? key}) : super(key: key);
 
@@ -61,6 +63,11 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   void initState() {
     super.initState();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     setData();
   }
 
@@ -350,7 +357,14 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
                       final tasksController = TasksController();
                       tasksController.addToPending(newTask);
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(
+                            page: 0,
+                          ),
+                        ),
+                      );
                     }
                   },
                   child: Container(

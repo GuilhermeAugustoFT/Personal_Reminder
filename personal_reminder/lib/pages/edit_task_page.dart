@@ -8,6 +8,8 @@ import 'package:intl/intl.dart';
 import 'package:personal_reminder/controllers/TasksController.dart';
 import 'package:personal_reminder/models/Task.dart';
 
+import 'home_page.dart';
+
 class EditTaskPage extends StatefulWidget {
   Task task;
   int index;
@@ -68,6 +70,10 @@ class _EditTaskPage extends State<EditTaskPage> {
   void initState() {
     super.initState();
     setData();
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
   }
 
   bool verifyData() {
@@ -362,7 +368,14 @@ class _EditTaskPage extends State<EditTaskPage> {
                       );
 
                       tasksController.addToPending(this.widget.task);
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(
+                            page: 0,
+                          ),
+                        ),
+                      );
                     }
                   },
                   child: Container(

@@ -67,8 +67,8 @@ class _TaskWidgetState extends State<TaskWidget> {
           Row(
             children: [
               GestureDetector(
-                onTap: () {
-                  Navigator.push(
+                onTap: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => EditTaskPage(
