@@ -35,6 +35,32 @@ class Task {
     return this.notificationMode;
   }
 
+  int getDay() {
+    var day = date.substring(0, 2);
+
+    return int.parse(day);
+  }
+
+  int getMonth() {
+    var month = date.substring(3, 5);
+    return int.parse(month);
+  }
+
+  int getYear() {
+    var year = date.substring(6);
+    return int.parse(year);
+  }
+
+  int getTime() {
+    var time = hour.substring(0, 2);
+    return int.parse(time);
+  }
+
+  int getMinutes() {
+    var minutes = hour.substring(3);
+    return int.parse(minutes);
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,

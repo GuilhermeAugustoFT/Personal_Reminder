@@ -25,11 +25,23 @@ class TaskWidget extends StatefulWidget {
 
 class _TaskWidgetState extends State<TaskWidget> {
   late Task task;
+  late DateTime now;
+  late DateTime taskTime;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     task = Task.fromJson(this.widget.stringTask);
+    now = DateTime.now();
+    taskTime = DateTime(task.getYear(), task.getMonth(), task.getDay(),
+        task.getTime(), task.getMinutes());
+
+    if (taskTime.isBefore(now)) {
+      textColor = Colors.red;
+      taskColor = Color(0xFF121212);
+      titleColor = Color(0xFF646566);
+    }
   }
 
   var actualPage;
@@ -41,7 +53,7 @@ class _TaskWidgetState extends State<TaskWidget> {
   var completedToPending = false;
 
   void refresh(int page) async {
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 1));
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
@@ -166,11 +178,11 @@ class _TaskWidgetState extends State<TaskWidget> {
                     titleColor = Color(0xFF646566);
                     textColor = Color(0xFF646566);
                     checked = true;
-                    tasksController.removeFromPending(this.widget.index);
-                    tasksController.addToCompleted(task);
-                    //esperar 2 segundos e dar refresh na pagina
-
-                    refresh(0);
+                    try {
+                      tasksController.removeFromPending(this.widget.index);
+                      tasksController.addToCompleted(task);
+                      refresh(0);
+                    } catch (e) {}
                   }
                   if (this.widget.page == 1) {
                     taskColor = Colors.black87;

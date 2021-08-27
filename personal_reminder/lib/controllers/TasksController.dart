@@ -22,21 +22,29 @@ class TasksController {
   }
 
   void addToPending(Task task) async {
-    List<String>? list = [];
-    final instance = await SharedPreferences.getInstance();
-    if (await getPendingNumber() != 0)
-      list = instance.get("pendingTasks") as List<String>?;
-    list!.add(task.toJson());
-    instance.setStringList("pendingTasks", list);
+    try {
+      List<String>? list = [];
+      final instance = await SharedPreferences.getInstance();
+      if (await getPendingNumber() != 0)
+        list = instance.get("pendingTasks") as List<String>?;
+      list!.add(task.toJson());
+      instance.setStringList("pendingTasks", list);
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 
   void addToCompleted(Task task) async {
-    List<String>? list = [];
-    final instance = await SharedPreferences.getInstance();
-    if (await getCompletedNumber() != 0)
-      list = instance.get("completedTasks") as List<String>?;
-    list!.add(task.toJson());
-    instance.setStringList("completedTasks", list);
+    try {
+      List<String>? list = [];
+      final instance = await SharedPreferences.getInstance();
+      if (await getCompletedNumber() != 0)
+        list = instance.get("completedTasks") as List<String>?;
+      list!.add(task.toJson());
+      instance.setStringList("completedTasks", list);
+    } on Exception catch (e) {
+      // TODO
+    }
   }
 
   Future<int> getPendingNumber() async {
@@ -62,18 +70,22 @@ class TasksController {
   }
 
   void removeFromPending(int index) async {
-    List<String> tasks = await getPendingTasks() as List<String>;
-    tasks.remove(tasks[index]);
-    final instance = await SharedPreferences.getInstance();
-    instance.remove("pendingTasks");
-    instance.setStringList("pendingTasks", tasks);
+    try {
+      List<String> tasks = await getPendingTasks() as List<String>;
+      tasks.remove(tasks[index]);
+      final instance = await SharedPreferences.getInstance();
+      instance.remove("pendingTasks");
+      instance.setStringList("pendingTasks", tasks);
+    } on Exception catch (e) {}
   }
 
   void removeFromCompleted(int index) async {
-    List<String> tasks = await getCompletedTasks() as List<String>;
-    tasks.remove(tasks[index]);
-    final instance = await SharedPreferences.getInstance();
-    instance.remove("completedTasks");
-    instance.setStringList("completedTasks", tasks);
+    try {
+      List<String> tasks = await getCompletedTasks() as List<String>;
+      tasks.remove(tasks[index]);
+      final instance = await SharedPreferences.getInstance();
+      instance.remove("completedTasks");
+      instance.setStringList("completedTasks", tasks);
+    } on Exception catch (e) {}
   }
 }
