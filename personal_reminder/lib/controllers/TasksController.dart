@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:personal_reminder/models/Task.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class TasksController {
   Future<List<String>?> getPendingTasks() async {
@@ -29,6 +32,17 @@ class TasksController {
         list = instance.get("pendingTasks") as List<String>?;
       list!.add(task.toJson());
       instance.setStringList("pendingTasks", list);
+
+      http.post(
+        Uri.parse("https://onesignal.com/api/v1/notifications"),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, String>{
+          'title': task.name,
+          'date': task.date,
+        }),
+      );
     } on Exception catch (e) {
       // TODO
     }

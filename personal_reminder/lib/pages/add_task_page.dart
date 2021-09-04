@@ -277,66 +277,66 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   )
                 ],
               ),
-              AnimatedCard(
-                direction: AnimatedCardDirection.right,
-                child: Container(
-                  margin: EdgeInsets.only(
-                    top: size.width * 0.05,
-                  ),
-                  child: Text(
-                    "Selecione modo de notificação",
-                    style: GoogleFonts.montserrat(
-                      fontSize: size.width * 0.065,
-                      color: Color(0xFFA8A8A8),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: size.width * 0.03,
-              ),
-              AnimatedCard(
-                direction: AnimatedCardDirection.right,
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: simple,
-                      onChanged: (newValue) {
-                        simple = true;
-                        setState(() {});
-                      },
-                    ),
-                    Text(
-                      "Simpes - Receba notificação apenas no \ndia de conclusão",
-                      style: GoogleFonts.montserrat(
-                        fontSize: size.width * 0.04,
-                        color: Color(0xFFA8A8A8),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              AnimatedCard(
-                direction: AnimatedCardDirection.right,
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: !simple,
-                      onChanged: (newValue) {
-                        simple = false;
-                        setState(() {});
-                      },
-                    ),
-                    Text(
-                      "Importante - Receba notificação a cada \n2 horas até o dia de conclusão",
-                      style: GoogleFonts.montserrat(
-                        fontSize: size.width * 0.04,
-                        color: Color(0xFFA8A8A8),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              // AnimatedCard(
+              //   direction: AnimatedCardDirection.right,
+              //   child: Container(
+              //     margin: EdgeInsets.only(
+              //       top: size.width * 0.05,
+              //     ),
+              //     child: Text(
+              //       "Selecione modo de notificação",
+              //       style: GoogleFonts.montserrat(
+              //         fontSize: size.width * 0.065,
+              //         color: Color(0xFFA8A8A8),
+              //       ),
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: size.width * 0.03,
+              // ),
+              // AnimatedCard(
+              //   direction: AnimatedCardDirection.right,
+              //   child: Row(
+              //     children: [
+              //       Checkbox(
+              //         value: simple,
+              //         onChanged: (newValue) {
+              //           simple = true;
+              //           setState(() {});
+              //         },
+              //       ),
+              //       Text(
+              //         "Simpes - Receba notificação apenas no \ndia de conclusão",
+              //         style: GoogleFonts.montserrat(
+              //           fontSize: size.width * 0.04,
+              //           color: Color(0xFFA8A8A8),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
+              // AnimatedCard(
+              //   direction: AnimatedCardDirection.right,
+              //   child: Row(
+              //     children: [
+              //       Checkbox(
+              //         value: !simple,
+              //         onChanged: (newValue) {
+              //           simple = false;
+              //           setState(() {});
+              //         },
+              //       ),
+              //       Text(
+              //         "Importante - Receba notificação a cada \n2 horas até o dia de conclusão",
+              //         style: GoogleFonts.montserrat(
+              //           fontSize: size.width * 0.04,
+              //           color: Color(0xFFA8A8A8),
+              //         ),
+              //       ),
+              //     ],
+              //   ),
+              // ),
               AnimatedCard(
                 direction: AnimatedCardDirection.bottom,
                 child: GestureDetector(
@@ -369,7 +369,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   },
                   child: Container(
                     margin: EdgeInsets.only(
-                        top: size.width * 0.1, left: size.width * 0.13),
+                        top: size.width * 0.5, left: size.width * 0.13),
                     height: size.width * 0.13,
                     width: size.width * 0.735,
                     decoration: BoxDecoration(
