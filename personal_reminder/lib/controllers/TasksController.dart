@@ -32,17 +32,6 @@ class TasksController {
         list = instance.get("pendingTasks") as List<String>?;
       list!.add(task.toJson());
       instance.setStringList("pendingTasks", list);
-
-      http.post(
-        Uri.parse("https://onesignal.com/api/v1/notifications"),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, String>{
-          'title': task.name,
-          'date': task.date,
-        }),
-      );
     } on Exception catch (e) {
       // TODO
     }
