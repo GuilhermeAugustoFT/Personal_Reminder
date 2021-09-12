@@ -5,8 +5,18 @@ sobre as que ele concluiu e as que ainda não foram concluídas.
 As tarefas Adicionadas são salvas no LocalStorage do dispositivo, portanto
 não utiliza nenhuma API externa.
 
-Nos gifs abaixo é possível observar o aplicativo por inteiro e todas suas funcionalidades.
+# Instalação do projeto
+1 - Crie uma pasta para armazenar o projeto.
 
+2 - Pelo terminal, navegue até a pasta e digite: `git clone https://github.com/GuilhermeAugustoFT/Personal_Reminder.git`.
+
+3 - Agora com o projeto clonado, entre nas pastas Personal_Reminder e por fim personal_reminder.
+
+4 - No terminal digite o comando: `flutter pub get`.
+
+5 - Agora você tem todas as dependencias do projeto instaladas e pode rodá-lo normalmente.
+
+### Nos gifs abaixo é possível observar o aplicativo por inteiro e todas suas funcionalidades.
 
 # Primeiro contato com o APP            
 # ![Hnet-image](https://user-images.githubusercontent.com/49246009/132956810-cf8799f4-431a-4dce-9cac-61f5591d6923.gif)
