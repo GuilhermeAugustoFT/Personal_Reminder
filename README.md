@@ -8,7 +8,9 @@ não utiliza nenhuma API externa.
 # Instalação do projeto
 1 - Crie uma pasta para armazenar o projeto.
 
-2 - Pelo terminal, navegue até a pasta e digite: `git clone https://github.com/GuilhermeAugustoFT/Personal_Reminder.git`.
+2 - Pelo terminal, navegue até a pasta e digite: 
+
+`git clone https://github.com/GuilhermeAugustoFT/Personal_Reminder.git`.
 
 3 - Agora com o projeto clonado, entre nas pastas Personal_Reminder e por fim personal_reminder.
 
